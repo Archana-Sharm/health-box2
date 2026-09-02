@@ -1,0 +1,16 @@
+# Project Rules
+
+- Use React + Vite + TypeScript for all UI work.
+- Follow the existing app structure and keep components in the current folders.
+- Prefer reusable components and keep logic clean and readable.
+- Use Tailwind utility classes for styling whenever possible.
+- Keep imports organized and avoid unused variables.
+- Use double quotes for strings when needed, and avoid broken JSX or unclosed tags.
+- Preserve the current design system: dark navy and green accent palette, clean modern medical branding.
+- Keep code simple, production-ready, and consistent with the existing app patterns.
+- Do not add unnecessary dependencies or large refactors without reason.
+- Prefer functional React components and hooks, using default exports for components.
+- When editing pages or shared components, maintain the existing layout, spacing, and visual style.
+- Ensure accessibility: valid button labels, semantic structure, and clear interactive states.
+- For API work, keep calls centralized in the existing API layer and handle loading/error states cleanly.
+- Before finalizing code, check for TypeScript or JSX errors and fix them.
