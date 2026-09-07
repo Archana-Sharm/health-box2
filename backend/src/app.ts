@@ -46,6 +46,9 @@ const apiLimiter = rateLimit({
   limit: 300,
   standardHeaders: true,
   legacyHeaders: false,
+  // Skip express-rate-limit's proxy sanity checks. The cPanel/Apache hop always
+  // adds X-Forwarded-For and the validator is too strict about the exact hop count.
+  validate: { trustProxy: false, xForwardedForHeader: false },
 });
 app.use("/api", apiLimiter);
 

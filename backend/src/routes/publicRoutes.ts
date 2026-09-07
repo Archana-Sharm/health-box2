@@ -18,6 +18,8 @@ const formLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: "Too many submissions. Please try again later." },
+  // Skip express-rate-limit's proxy sanity checks (see app.ts apiLimiter).
+  validate: { trustProxy: false, xForwardedForHeader: false },
 });
 
 router.get("/banners", getPublicBanners);
