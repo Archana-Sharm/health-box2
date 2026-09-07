@@ -3,23 +3,23 @@ import path from "path";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
-function required(name: string, fallback?: string): string {
-  const value = process.env[name] ?? fallback;
-  if (value === undefined) {
-    // eslint-disable-next-line no-console
-    console.warn(`[env] Warning: ${name} is not set. Using empty string.`);
-    return "";
+// NEW CODE - Require a production MongoDB URI instead of silently falling back to localhost.
+const requiredEnv = (name: string): string => {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`[config] Missing required environment variable: ${name}`);
   }
   return value;
-}
+};
 
 export const env = {
   nodeEnv: process.env.NODE_ENV || "development",
   port: parseInt(process.env.PORT || "5001", 10),
-  mongodbUri: required("MONGODB_URI", "mongodb://localhost:27017/health_box_db"),
+  // NEW CODE - Use the configured production MongoDB connection string and fail clearly when it is missing.
+  mongodbUri: requiredEnv("MONGODB_URI"),
 
-  jwtAccessSecret: required("JWT_ACCESS_SECRET", "dev_access_secret_change_me"),
-  jwtRefreshSecret: required("JWT_REFRESH_SECRET", "dev_refresh_secret_change_me"),
+  jwtAccessSecret: process.env.JWT_ACCESS_SECRET || "dev_access_secret_change_me",
+  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || "dev_refresh_secret_change_me",
   jwtAccessExpiresIn: process.env.JWT_ACCESS_EXPIRES_IN || "15m",
   jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
 

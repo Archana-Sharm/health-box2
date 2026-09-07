@@ -21,6 +21,8 @@ import publicRoutes from "./routes/publicRoutes";
 import dashboardRoutes from "./routes/dashboardRoutes";
 
 const app = express();
+// NEW CODE - Trust the single cPanel/Apache proxy hop so express-rate-limit can read the real client IP.
+app.set("trust proxy", 1);
 
 // ---------- Security & core middleware ----------
 app.use(
